@@ -22,7 +22,13 @@ exports.typeDefs = `
     getAllColognes: [Cologne] 
   }
 
+  type Token {
+    token: String!
+  }
+
   type Mutation {
     addCologne(scentName: String!, scentPrice: Int, description: String, username: String): Cologne
+    
+    signupUser(username: String!, email: String!, password: String!): Token
   }
 `;
