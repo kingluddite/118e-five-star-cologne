@@ -7,13 +7,10 @@
     "precommit": "pretty-quick --staged",
     "server": "nodemon server/server.js",
     "client": "cd client && npm start",
-    "dev": "concurrently --names \"server,client\" \"npm run server --silent\"\"npm run client --silent\""
+    "dev": "concurrently --names \"server,client\" \"npm run server --silent\" \"npm run client --silent\""
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.1",
     "concurrently": "^4.0.1",
-    "eslint": "^5.6.1",
-    "eslint-config-react-app": "^3.0.2",
     "eslint-plugin-flowtype": "^2.50.3",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
