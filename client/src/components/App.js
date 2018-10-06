@@ -4,6 +4,9 @@ import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import { GET_ALL_COLOGNES } from '../queries';
 
+// custom components
+import CologneItem from './Cologne/CologneItem';
+
 // styles
 import './App.css';
 
@@ -18,7 +21,13 @@ class App extends Component {
             if (error) return <div>Error</div>;
             console.log(data);
 
-            return <p>Colognes</p>;
+            return (
+              <ul>
+                {data.getAllColognes.map(cologne => (
+                  <CologneItem key={cologne._id} {...cologne} />
+                ))}
+              </ul>
+            );
           }}
         </Query>
       </div>

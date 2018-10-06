@@ -1,6 +1,9 @@
-exports.typeDefs = `
+const { gql } = require('apollo-server-express');
+
+exports.typeDefs = gql`
+  scalar ObjectID
   type Cologne {
-    _id: ID,
+    _id: ObjectID
     scentName: String!
     scentPrice: Int
     createdDate: String
@@ -10,7 +13,7 @@ exports.typeDefs = `
   }
 
   type User {
-    _id: ID,
+    _id: ObjectID
     username: String!
     password: String!
     email: String!
@@ -19,7 +22,9 @@ exports.typeDefs = `
   }
 
   type Query {
-    getAllColognes: [Cologne] 
+    getAllColognes: [Cologne]
+
+    getCurrentUser: User
   }
 
   type Token {
@@ -27,8 +32,14 @@ exports.typeDefs = `
   }
 
   type Mutation {
-    addCologne(scentName: String!, scentPrice: Int, description: String, username: String): Cologne
-    
+    addCologne(
+      scentName: String!
+      scentPrice: Int
+      description: String
+      username: String
+    ): Cologne
+
+    signinUser(username: String!, password: String!): Token
     signupUser(username: String!, email: String!, password: String!): Token
   }
 `;
