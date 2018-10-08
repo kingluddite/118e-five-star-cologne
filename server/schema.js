@@ -5,13 +5,13 @@ exports.typeDefs = gql`
   type Cologne {
     _id: ObjectID
     scentName: String!
+    scentBrand: String!
     scentPrice: Int
     createdDate: String
     description: String
     likes: Int
     username: String
   }
-  # comments
 
   type User {
     _id: ObjectID
@@ -36,6 +36,7 @@ exports.typeDefs = gql`
   type Mutation {
     addCologne(
       scentName: String!
+      scentBrand: String!
       scentPrice: Int
       description: String
       username: String

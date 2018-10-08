@@ -76,11 +76,12 @@ exports.resolvers = {
   Mutation: {
     addCologne: async (
       root,
-      { scentName, scentPrice, description, username },
+      { scentName, scentBrand, scentPrice, description, username },
       { Cologne }
     ) => {
       const newCologne = await new Cologne({
         scentName,
+        scentBrand,
         scentPrice,
         description,
         username,

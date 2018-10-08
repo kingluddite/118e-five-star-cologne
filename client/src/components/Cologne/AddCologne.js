@@ -7,6 +7,7 @@ import { ADD_COLOGNE, GET_ALL_COLOGNES } from '../../queries';
 
 const initialState = {
   scentName: '',
+  scentBrand: '',
   scentPrice: 0,
   description: '',
   username: '',
@@ -24,8 +25,6 @@ class AddCologne extends Component {
   };
 
   componentDidMount = () => {
-    // console.log(this.props.session);
-    // console.log(this.props.session.getCurrentUser.username);
     this.setState({
       username: this.props.session.getCurrentUser.username,
     });
@@ -33,17 +32,10 @@ class AddCologne extends Component {
 
   handleChange = event => {
     const { name, value } = event.target;
-    // console.log(name, ':', value);
-    // if (name === 'scentPrice') {
-    //   this.setState({
-    //     name: parseInt(value, 10);
-    //   });
-    // } else {
 
     this.setState({
       [name]: value,
     });
-    // }
   };
 
   handleSubmit = (event, addCologne) => {
@@ -56,7 +48,6 @@ class AddCologne extends Component {
   };
 
   updateCache = (cache, { data: { addCologne } }) => {
-    // console.log(cache, addCologne);
     // read the query
     const { getAllColognes } = cache.readQuery({
       query: GET_ALL_COLOGNES,
@@ -69,19 +60,29 @@ class AddCologne extends Component {
         getAllColognes: [addCologne, ...getAllColognes],
       },
     });
-    // console.log('from cache', getAllColognes);
-    // console.log('from data', addCologne);
   };
 
   render() {
-    const { scentName, scentPrice, description, username } = this.state;
+    const {
+      scentName,
+      scentBrand,
+      scentPrice,
+      description,
+      username,
+    } = this.state;
 
     return (
       <div className="App">
         <h2 className="App">Add Cologne</h2>
         <Mutation
           mutation={ADD_COLOGNE}
-          variables={{ scentName, scentPrice, description, username }}
+          variables={{
+            scentName,
+            scentBrand,
+            scentPrice,
+            description,
+            username,
+          }}
           update={this.updateCache}
         >
           {(addCologne, { data, loading, error }) => {
@@ -102,6 +103,15 @@ class AddCologne extends Component {
                   placeholder="Scent Name"
                   onChange={this.handleChange}
                   value={scentName}
+                />
+                <label htmlFor="scentBrand">Scent Brand</label>
+                <input
+                  type="text"
+                  id="scentBrand"
+                  name="scentBrand"
+                  placeholder="Scent Brand"
+                  onChange={this.handleChange}
+                  value={scentBrand}
                 />
                 <label htmlFor="scentPrice">Scent Price</label>
                 <input

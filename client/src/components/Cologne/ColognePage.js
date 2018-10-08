@@ -19,6 +19,7 @@ class ColognePage extends Component {
 
           const {
             scentName,
+            scentBrand,
             scentPrice,
             createdDate,
             likes,
@@ -29,11 +30,30 @@ class ColognePage extends Component {
           return (
             <div className="App">
               <h2>Scent Name: {scentName}</h2>
-              <p>{createdDate}</p>
-              <p>Scent Price: {scentPrice}</p>
-              <p>Description: {description}</p>
-              <p>Likes: {likes}</p>
-              <p>Created By: {username}</p>
+              <p>
+                <strong>Created Date: </strong>
+                {createdDate}
+              </p>
+              <p>
+                <strong>Scent Brand: </strong>
+                {scentBrand}
+              </p>
+              <p>
+                <strong>Scent Price: </strong>
+                {scentPrice}
+              </p>
+              <p>
+                <strong>Description: </strong>
+                {description}
+              </p>
+              <p>
+                <strong>Likes: </strong>
+                {likes}
+              </p>
+              <p>
+                <strong>Created By: </strong>
+                {username}
+              </p>
               <button>Like</button>
             </div>
           );
