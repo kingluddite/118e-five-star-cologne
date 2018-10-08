@@ -56,6 +56,32 @@ exports.resolvers = {
       return cologne;
     },
 
+    searchColognes: async (root, { searchTerm }, { Cologne }) => {
+      // do we have a searchTerm?
+      if (searchTerm) {
+        // do the search
+        const searchResults = await Cologne.find(
+          {
+            $text: { $search: searchTerm },
+          },
+          {
+            score: { $meta: 'textScore' },
+          }
+        ).sort({
+          score: { $meta: 'textScore' },
+        });
+        return searchResults;
+      } else {
+        // no searchTerm so just return all the colognes
+        const colognes = await Cologne.find().sort({
+          likes: 'desc',
+          createdDate: 'desc',
+        });
+
+        return colognes;
+      }
+    },
+
     // user
 
     getCurrentUser: async (root, args, { currentUser, User }) => {

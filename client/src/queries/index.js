@@ -29,6 +29,17 @@ export const GET_COLOGNE = gql`
   }
 `;
 
+export const SEARCH_COLOGNES = gql`
+  query($searchTerm: String) {
+    searchColognes(searchTerm: $searchTerm) {
+      _id
+      scentName
+      scentBrand
+      likes
+    }
+  }
+`;
+
 // Cologne Mutations
 
 export const ADD_COLOGNE = gql`

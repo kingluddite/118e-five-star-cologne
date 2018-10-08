@@ -29,4 +29,8 @@ const CologneSchema = new Schema({
   },
 });
 
+CologneSchema.index({
+  '$**': 'text',
+});
+
 module.exports = mongoose.model('Cologne', CologneSchema);

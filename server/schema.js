@@ -25,6 +25,7 @@ exports.typeDefs = gql`
   type Query {
     getAllColognes: [Cologne]
     getCologne(_id: ObjectID!): Cologne
+    searchColognes(searchTerm: String): [Cologne]
 
     getCurrentUser: User
   }
