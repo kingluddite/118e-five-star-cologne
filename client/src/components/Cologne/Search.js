@@ -5,7 +5,7 @@ import { ApolloConsumer } from 'react-apollo';
 import { SEARCH_COLOGNES } from '../../queries';
 
 // custom components
-import SearchItem from './SearchItem;';
+import SearchItem from './SearchItem';
 
 class Search extends Component {
   state = {
