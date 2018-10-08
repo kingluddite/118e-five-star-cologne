@@ -6,6 +6,7 @@ export const GET_ALL_COLOGNES = gql`
     getAllColognes {
       _id
       scentName
+      scentBrand
       scentPrice
       likes
       createdDate
@@ -18,6 +19,7 @@ export const GET_COLOGNE = gql`
     getCologne(_id: $_id) {
       _id
       scentName
+      scentBrand
       scentPrice
       createdDate
       description
@@ -32,18 +34,21 @@ export const GET_COLOGNE = gql`
 export const ADD_COLOGNE = gql`
   mutation(
     $scentName: String!
+    $scentBrand: String!
     $scentPrice: Int
     $description: String
     $username: String
   ) {
     addCologne(
       scentName: $scentName
+      scentBrand: $scentBrand
       scentPrice: $scentPrice
       description: $description
       username: $username
     ) {
       _id
       scentName
+      scentBrand
       scentPrice
       description
       createdDate

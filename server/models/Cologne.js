@@ -6,6 +6,10 @@ const CologneSchema = new Schema({
     type: String,
     required: true,
   },
+  scentBrand: {
+    type: String,
+    required: true,
+  },
   scentPrice: {
     type: Number,
   },
