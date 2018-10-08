@@ -1,4 +1,6 @@
 const express = require('express');
+// bring in graphql middleware
+const { ApolloServer } = require('apollo-server-express');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 require('dotenv').config({ path: 'variables.env' });
@@ -6,9 +8,6 @@ require('dotenv').config({ path: 'variables.env' });
 // models
 const Cologne = require('./models/Cologne');
 const User = require('./models/User');
-
-// bring in graphql middleware
-const { ApolloServer } = require('apollo-server-express');
 
 // graphql
 const { typeDefs } = require('./schema');
@@ -33,9 +32,9 @@ const app = express();
 
 // set up JWT authentication middleware
 app.use(async (req, res, next) => {
-  const token = req.headers.authorization;
+  const token = req.headers['authorization'];
   // console.log(token, typeof token);
-  if (token !== 'null') {
+  if (token !== 'null' && token !== '' && token !== undefined) {
     try {
       // add currentuser to the request object
       req.currentUser = await jwt.verify(token, process.env.SECRET);

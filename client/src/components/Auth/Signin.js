@@ -33,7 +33,7 @@ class Signin extends Component {
   handleSubmit = (event, signinUser) => {
     event.preventDefault();
     signinUser().then(async ({ data: { signinUser } }) => {
-      console.log(signinUser.data);
+      // console.log(signinUser.data);
       localStorage.setItem('token', signinUser.token);
       await this.props.refetch();
       this.clearState();

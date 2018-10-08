@@ -13,7 +13,44 @@ export const GET_ALL_COLOGNES = gql`
   }
 `;
 
+export const GET_COLOGNE = gql`
+  query($_id: ObjectID!) {
+    getCologne(_id: $_id) {
+      _id
+      scentName
+      scentPrice
+      createdDate
+      description
+      likes
+      username
+    }
+  }
+`;
+
 // Cologne Mutations
+
+export const ADD_COLOGNE = gql`
+  mutation(
+    $scentName: String!
+    $scentPrice: Int
+    $description: String
+    $username: String
+  ) {
+    addCologne(
+      scentName: $scentName
+      scentPrice: $scentPrice
+      description: $description
+      username: $username
+    ) {
+      _id
+      scentName
+      scentPrice
+      description
+      createdDate
+      likes
+    }
+  }
+`;
 
 // User Queries
 

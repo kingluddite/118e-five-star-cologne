@@ -23,9 +23,5 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "apollo-server-express": "^2.1.0",
-    "graphql-tools": "^4.0.0",
-    "mongoose": "^5.2.10"
-  }
+  "dependencies": {}
 }

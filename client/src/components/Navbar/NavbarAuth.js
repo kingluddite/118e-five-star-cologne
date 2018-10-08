@@ -15,7 +15,7 @@ class NavbarAuth extends Component {
             <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <NavLink to="/cologne">Add Cologne</NavLink>
+            <NavLink to="/cologne/add">Add Cologne</NavLink>
           </li>
           <li>
             <NavLink to="/profile">Profile</NavLink>

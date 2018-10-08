@@ -45,8 +45,15 @@ exports.resolvers = {
     // colognes
 
     getAllColognes: async (root, args, { Cologne }) => {
-      const allColognes = await Cologne.find();
+      const allColognes = await Cologne.find().sort({
+        createdDate: 'desc',
+      });
       return allColognes;
+    },
+
+    getCologne: async (root, { _id }, { Cologne }) => {
+      const cologne = await Cologne.findOne({ _id });
+      return cologne;
     },
 
     // user

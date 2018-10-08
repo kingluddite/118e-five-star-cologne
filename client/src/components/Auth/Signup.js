@@ -37,7 +37,7 @@ class Signup extends Component {
   handleSubmit = (event, signupUser) => {
     event.preventDefault();
     signupUser().then(async ({ data: { signupUser } }) => {
-      console.log(signupUser.token);
+      // console.log(signupUser.token);
       localStorage.setItem('token', signupUser.token);
       await this.props.refetch();
       this.clearState();

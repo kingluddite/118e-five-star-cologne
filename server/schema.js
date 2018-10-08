@@ -11,6 +11,7 @@ exports.typeDefs = gql`
     likes: Int
     username: String
   }
+  # comments
 
   type User {
     _id: ObjectID
@@ -23,6 +24,7 @@ exports.typeDefs = gql`
 
   type Query {
     getAllColognes: [Cologne]
+    getCologne(_id: ObjectID!): Cologne
 
     getCurrentUser: User
   }

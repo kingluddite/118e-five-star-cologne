@@ -4,7 +4,8 @@ import { withRouter } from 'react-router-dom';
 
 const handleSignout = (client, history) => {
   // clear token
-  localStorage.setItem('token', '');
+  // localStorage.setItem('token', '');
+  localStorage.removeItem('token');
   client.resetStore();
   // redirect to home page
   history.push('/');
