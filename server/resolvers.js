@@ -123,6 +123,11 @@ exports.resolvers = {
       return newCologne;
     },
 
+    deleteUserCologne: async (root, { _id }, { Cologne }) => {
+      const cologne = await Cologne.findOneAndDelete({ _id });
+      return cologne;
+    },
+
     signinUser: async (root, { username, email, password }, { User }) => {
       const user = await User.findOne({ username });
       if (!user) {

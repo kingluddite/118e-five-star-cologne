@@ -68,6 +68,14 @@ export const ADD_COLOGNE = gql`
   }
 `;
 
+export const DELETE_USER_COLOGNE = gql`
+  mutation($_id: ObjectID) {
+    deleteUserCologne(_id: $_id) {
+      _id
+    }
+  }
+`;
+
 // User Queries
 
 export const GET_CURRENT_USER = gql`
