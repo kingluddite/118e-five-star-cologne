@@ -97,6 +97,13 @@ exports.resolvers = {
       });
       return user;
     },
+
+    getUserColognes: async (root, { username }, { Cologne }) => {
+      const userColognes = await Cologne.find({ username }).sort({
+        createdDate: 'desc',
+      });
+      return userColognes;
+    },
   },
 
   Mutation: {

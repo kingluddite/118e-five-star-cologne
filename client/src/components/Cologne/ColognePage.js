@@ -5,6 +5,9 @@ import { withRouter } from 'react-router-dom';
 import { Query } from 'react-apollo';
 import { GET_COLOGNE } from '../../queries';
 
+// utilities
+import { formatDate } from '../../utilities';
+
 class ColognePage extends Component {
   render() {
     const { match } = this.props;
@@ -32,7 +35,7 @@ class ColognePage extends Component {
               <h2>Scent Name: {scentName}</h2>
               <p>
                 <strong>Created Date: </strong>
-                {createdDate}
+                {formatDate(createdDate)}
               </p>
               <p>
                 <strong>Scent Brand: </strong>

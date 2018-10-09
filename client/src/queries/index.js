@@ -76,6 +76,21 @@ export const GET_CURRENT_USER = gql`
       username
       email
       joinDate
+      favorites {
+        _id
+        scentName
+        scentBrand
+      }
+    }
+  }
+`;
+
+export const GET_USER_COLOGNES = gql`
+  query($username: String!) {
+    getUserColognes(username: $username) {
+      _id
+      scentName
+      likes
     }
   }
 `;

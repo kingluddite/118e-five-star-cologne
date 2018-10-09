@@ -5,6 +5,9 @@ import { withRouter } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
 import { ADD_COLOGNE, GET_ALL_COLOGNES } from '../../queries';
 
+// Auth
+import withAuth from '../withAuth';
+
 const initialState = {
   scentName: '',
   scentBrand: '',
@@ -140,4 +143,6 @@ class AddCologne extends Component {
   }
 }
 
-export default withRouter(AddCologne);
+export default withAuth(session => session && session.getCurrentUser)(
+  withRouter(AddCologne)
+);
