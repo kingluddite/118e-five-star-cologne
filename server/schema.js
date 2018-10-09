@@ -28,6 +28,7 @@ exports.typeDefs = gql`
     searchColognes(searchTerm: String): [Cologne]
 
     getCurrentUser: User
+    getUserColognes(username: String!): [Cologne]
   }
 
   type Token {
