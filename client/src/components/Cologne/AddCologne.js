@@ -3,7 +3,11 @@ import { withRouter } from 'react-router-dom';
 
 // GraphQL
 import { Mutation } from 'react-apollo';
-import { ADD_COLOGNE, GET_ALL_COLOGNES } from '../../queries';
+import {
+  ADD_COLOGNE,
+  GET_ALL_COLOGNES,
+  GET_USER_COLOGNES,
+} from '../../queries';
 
 // Auth
 import withAuth from '../withAuth';
@@ -86,6 +90,12 @@ class AddCologne extends Component {
             description,
             username,
           }}
+          refetchQueries={() => [
+            {
+              query: GET_USER_COLOGNES,
+              variables: { username },
+            },
+          ]}
           update={this.updateCache}
         >
           {(addCologne, { data, loading, error }) => {
