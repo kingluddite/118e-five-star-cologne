@@ -44,6 +44,14 @@ exports.typeDefs = gql`
       username: String
     ): Cologne
 
+    updateUserCologne(
+      _id: ObjectID!
+      scentName: String!
+      scentBrand: String!
+      scentPrice: Int
+      description: String
+    ): Cologne
+
     deleteUserCologne(_id: ObjectID): Cologne
 
     signinUser(username: String!, password: String!): Token

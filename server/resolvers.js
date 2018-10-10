@@ -123,6 +123,19 @@ exports.resolvers = {
       return newCologne;
     },
 
+    updateUserCologne: async (
+      root,
+      { _id, scentName, scentBrand, scentPrice, description },
+      { Cologne }
+    ) => {
+      const updatedCologne = await Cologne.findOneAndUpdate(
+        { _id },
+        { $set: { scentName, scentBrand, scentPrice, description } },
+        { new: true }
+      );
+      return updatedCologne;
+    },
+
     deleteUserCologne: async (root, { _id }, { Cologne }) => {
       const cologne = await Cologne.findOneAndDelete({ _id });
       return cologne;
