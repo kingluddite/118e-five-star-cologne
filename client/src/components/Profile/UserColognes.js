@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 // GraphQL
@@ -74,12 +74,17 @@ class UserColognes extends Component {
                   >
                     {(deleteUserCologne, attrs = {}) => {
                       return (
-                        <button
-                          className="delete-button"
-                          onClick={() => this.handleDelete(deleteUserCologne)}
-                        >
-                          {attrs.loading ? 'deleting...' : 'X'}
-                        </button>
+                        <Fragment>
+                          <button type="button" className="button-primary">
+                            Update
+                          </button>
+                          <button
+                            className="delete-button"
+                            onClick={() => this.handleDelete(deleteUserCologne)}
+                          >
+                            {attrs.loading ? 'deleting...' : 'X'}
+                          </button>
+                        </Fragment>
                       );
                     }}
                   </Mutation>

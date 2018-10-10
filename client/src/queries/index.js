@@ -8,8 +8,10 @@ export const GET_ALL_COLOGNES = gql`
       scentName
       scentBrand
       scentPrice
+      createdDated
+      description
       likes
-      createdDate
+      username
     }
   }
 `;
