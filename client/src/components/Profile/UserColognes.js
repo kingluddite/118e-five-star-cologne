@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
 // GraphQL
@@ -10,7 +10,28 @@ import {
   GET_CURRENT_USER,
 } from '../../queries';
 
+// custom components
+import EditCologneModal from '../Cologne/EditCologneModal';
+
 class UserColognes extends Component {
+  state = {
+    _id: '',
+    scentName: '',
+    scentBrand: '',
+    scentPrice: 0,
+    description: '',
+    modal: false,
+  };
+
+  loadCologne = cologne => {
+    // console.log(cologne);
+    this.setState({ ...cologne, modal: true });
+  };
+
+  closeModal = () => {
+    this.setState({ modal: false });
+  };
+
   handleDelete = deleteUserCologne => {
     const confirmDelete = window.confirm(
       'Are you sure you want to delete this cologne?'
@@ -23,9 +44,23 @@ class UserColognes extends Component {
     }
   };
 
+  handleChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value,
+    });
+  };
+
+  handleSubmit = (event, updateUserCologne) => {
+    event.preventDefault();
+    updateUserCologne().then(({ data }) => {
+      this.closeModal();
+    });
+  };
+
   render() {
     const { username } = this.props;
-
+    const { modal } = this.state;
     return (
       <Query query={GET_USER_COLOGNES} variables={{ username }}>
         {({ data, loading, error }) => {
@@ -35,6 +70,14 @@ class UserColognes extends Component {
 
           return (
             <ul>
+              {modal && (
+                <EditCologneModal
+                  handleChange={this.handleChange}
+                  closeModal={this.closeModal}
+                  cologne={this.state}
+                  handleSubmit={this.handleSubmit}
+                />
+              )}
               <h3>Your Colognes</h3>
               {!data.getUserColognes.length && (
                 <p>
@@ -74,12 +117,21 @@ class UserColognes extends Component {
                   >
                     {(deleteUserCologne, attrs = {}) => {
                       return (
-                        <button
-                          className="delete-button"
-                          onClick={() => this.handleDelete(deleteUserCologne)}
-                        >
-                          {attrs.loading ? 'deleting...' : 'X'}
-                        </button>
+                        <Fragment>
+                          <button
+                            type="button"
+                            className="button-primary"
+                            onClick={() => this.loadCologne(cologne)}
+                          >
+                            Update
+                          </button>
+                          <button
+                            className="delete-button"
+                            onClick={() => this.handleDelete(deleteUserCologne)}
+                          >
+                            {attrs.loading ? 'deleting...' : 'X'}
+                          </button>
+                        </Fragment>
                       );
                     }}
                   </Mutation>

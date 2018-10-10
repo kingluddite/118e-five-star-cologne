@@ -8,8 +8,10 @@ export const GET_ALL_COLOGNES = gql`
       scentName
       scentBrand
       scentPrice
-      likes
       createdDate
+      description
+      likes
+      username
     }
   }
 `;
@@ -64,6 +66,31 @@ export const ADD_COLOGNE = gql`
       description
       createdDate
       likes
+      username
+    }
+  }
+`;
+
+export const UPDATE_USER_COLOGNE = gql`
+  mutation(
+    $_id: ObjectID!
+    $scentName: String!
+    $scentBrand: String!
+    $scentPrice: Int
+    $description: String
+  ) {
+    updateUserCologne(
+      _id: $_id
+      scentName: $scentName
+      scentBrand: $scentBrand
+      scentPrice: $scentPrice
+      description: $description
+    ) {
+      _id
+      scentName
+      scentBrand
+      scentPrice
+      description
     }
   }
 `;
@@ -98,6 +125,8 @@ export const GET_USER_COLOGNES = gql`
     getUserColognes(username: $username) {
       _id
       scentName
+      scentBrand
+      description
       likes
     }
   }
