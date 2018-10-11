@@ -2,6 +2,7 @@ const express = require('express');
 // bring in graphql middleware
 const { ApolloServer } = require('apollo-server-express');
 const mongoose = require('mongoose');
+const path = require('path');
 const jwt = require('jsonwebtoken');
 require('dotenv').config({ path: 'variables.env' });
 
@@ -12,6 +13,14 @@ const User = require('./models/User');
 // graphql
 const { typeDefs } = require('./schema');
 const { resolvers } = require('./resolvers');
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
 // connect to db
 mongoose

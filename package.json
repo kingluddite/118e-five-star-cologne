@@ -3,11 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "v10.11.0"
+  },
   "scripts": {
     "precommit": "pretty-quick --staged",
     "server": "nodemon server/server.js",
     "client": "cd client && npm start",
-    "dev": "concurrently --names \"server,client\" \"npm run server --silent\" \"npm run client --silent\""
+    "dev": "concurrently --names \"server,client\" \"npm run server --silent\" \"npm run client --silent\"",
+    "heroku-postbuild": "npm install --prefix client && npm run build --prefix client"
   },
   "devDependencies": {
     "concurrently": "^4.0.1",
