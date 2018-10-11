@@ -4,6 +4,7 @@ import { gql } from 'apollo-boost';
 import { cologneFragments } from './fragments';
 
 // cologne queries
+
 export const GET_ALL_COLOGNES = gql`
   query {
     getAllColognes {
