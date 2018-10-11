@@ -1,34 +1,25 @@
 import { gql } from 'apollo-boost';
 
+// fragments
+import { cologneFragments } from './fragments';
+
 // Cologne Queries
 export const GET_ALL_COLOGNES = gql`
   query {
     getAllColognes {
-      _id
-      scentName
-      scentBrand
-      scentPrice
-      createdDate
-      description
-      likes
-      username
+      ...CompleteCologne
     }
   }
+  ${cologneFragments.cologne}
 `;
 
 export const GET_COLOGNE = gql`
   query($_id: ObjectID!) {
     getCologne(_id: $_id) {
-      _id
-      scentName
-      scentBrand
-      scentPrice
-      createdDate
-      description
-      likes
-      username
+      ...CompleteCologne
     }
   }
+  ${cologneFragments.cologne}
 `;
 
 export const SEARCH_COLOGNES = gql`
@@ -59,15 +50,9 @@ export const ADD_COLOGNE = gql`
       description: $description
       username: $username
     ) {
-      _id
-      scentName
-      scentBrand
-      scentPrice
-      description
-      createdDate
-      likes
-      username
+      ...CompleteCologne
     }
+  ${cologneFragments.cologne}
   }
 `;
 
