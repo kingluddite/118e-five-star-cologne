@@ -14,14 +14,6 @@ const User = require('./models/User');
 const { typeDefs } = require('./schema');
 const { resolvers } = require('./resolvers');
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
-
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-  });
-}
-
 // connect to db
 mongoose
   .connect(
@@ -38,6 +30,14 @@ mongoose.set('useCreateIndex', true);
 
 // initialize app
 const app = express();
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
 // set up JWT authentication middleware
 app.use(async (req, res, next) => {
