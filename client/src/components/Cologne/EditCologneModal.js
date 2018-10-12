@@ -1,10 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 // GraphQL
-import { Mutation } from 'react-apollo';
-import { UPDATE_USER_COLOGNE } from '../../queries';
+import { Mutation } from "react-apollo";
+import { UPDATE_USER_COLOGNE } from "../../queries";
 
-export class EditCologneModal extends Component {
+class EditCologneModal extends Component {
+  static propTypes = {
+    handleChange: PropTypes.func.isRequired,
+    closeModal: PropTypes.func.isRequired,
+    handleSubmit: PropTypes.func.isRequired,
+    cologne: PropTypes.object.isRequired
+  };
+
   render() {
     const { handleChange, closeModal, cologne, handleSubmit } = this.props;
 
@@ -16,7 +24,7 @@ export class EditCologneModal extends Component {
           scentName: cologne.scentName,
           scentBrand: cologne.scentBrand,
           scentPrice: cologne.scentPrice,
-          description: cologne.description,
+          description: cologne.description
         }}
       >
         {updateUserCologne => (
@@ -27,27 +35,33 @@ export class EditCologneModal extends Component {
                   className="modal-content-inner"
                   onSubmit={event => handleSubmit(event, updateUserCologne)}
                 >
-                  <label htmlFor="scentName">Scent Name</label>
-                  <input
-                    type="text"
-                    name="scentName"
-                    onChange={handleChange}
-                    value={cologne.scentName}
-                  />
-                  <label htmlFor="scentBrand">Scent Brand</label>
-                  <input
-                    type="text"
-                    name="scentBrand"
-                    onChange={handleChange}
-                    value={cologne.scentBrand}
-                  />
-                  <label htmlFor="scentPrice">Scent Price</label>
-                  <input
-                    type="text"
-                    name="scentPrice"
-                    onChange={handleChange}
-                    value={cologne.scentPrice}
-                  />
+                  <label htmlFor="scentName">
+                    <input
+                      type="text"
+                      name="scentName"
+                      onChange={handleChange}
+                      value={cologne.scentName}
+                    />
+                    Scent Name
+                  </label>
+                  <label htmlFor="scentBrand">
+                    <input
+                      type="text"
+                      name="scentBrand"
+                      onChange={handleChange}
+                      value={cologne.scentBrand}
+                    />
+                    Scent Brand
+                  </label>
+                  <label htmlFor="scentPrice">
+                    <input
+                      type="text"
+                      name="scentPrice"
+                      onChange={handleChange}
+                      value={cologne.scentPrice}
+                    />
+                    Scent Price
+                  </label>
                   {/* <label htmlFor="description">Add Description</label> */}
                   {/* <textarea */}
                   {/*   name="description" */}
@@ -56,8 +70,12 @@ export class EditCologneModal extends Component {
                   {/* /> */}
                   <hr />
                   <div className="modal-buttons">
-                    <button className="button-primary">Update</button>
-                    <button onClick={closeModal}>Cancel</button>
+                    <button type="button" className="button-primary">
+                      Update
+                    </button>
+                    <button type="button" onClick={closeModal}>
+                      Cancel
+                    </button>
                   </div>
                 </form>
               </div>

@@ -1,10 +1,10 @@
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 /* new with apollo 2 */
-const { GraphQLScalarType } = require('graphql');
-const { Kind } = require('graphql/language');
-const { ObjectID } = require('mongoose').mongo.ObjectID;
+const { GraphQLScalarType } = require("graphql");
+const { Kind } = require("graphql/language");
+const { ObjectID } = require("mongoose").mongo.ObjectID;
 
 const createToken = (user, secret, expiresIn) => {
   const { username, email } = user;
@@ -13,14 +13,14 @@ const createToken = (user, secret, expiresIn) => {
 
 exports.resolvers = {
   ObjectID: new GraphQLScalarType({
-    name: 'ObjectID',
+    name: "ObjectID",
     description:
-      'The `ObjectID` scalar type represents a [`BSON`](https://en.wikipedia.BSON) commonly used in `mongodb`',
+      "The `ObjectID` scalar type represents a [`BSON`](https://en.wikipedia.BSON) commonly used in `mongodb`",
     serialize(_id) {
       if (_id instanceof ObjectID) {
         return _id.toHexString();
       }
-      if (typeof _id === 'string') {
+      if (typeof _id === "string") {
         return _id;
       }
       throw new Error(
@@ -28,7 +28,7 @@ exports.resolvers = {
       );
     },
     parseValue(_id) {
-      if (typeof _id === 'string') {
+      if (typeof _id === "string") {
         return ObjectID.createFromHexString(_id);
       }
       throw new Error(`${typeof _id} not convertible to ObjectID`);
@@ -38,7 +38,7 @@ exports.resolvers = {
         return ObjectID.createFromHexString(ast.value);
       }
       throw new Error(`${ast.kind} not convertible to ObjectID`);
-    },
+    }
   }),
 
   Query: {
@@ -46,7 +46,7 @@ exports.resolvers = {
 
     getAllColognes: async (root, args, { Cologne }) => {
       const allColognes = await Cologne.find().sort({
-        createdDate: 'desc',
+        createdDate: "desc"
       });
       return allColognes;
     },
@@ -62,24 +62,23 @@ exports.resolvers = {
         // do the search
         const searchResults = await Cologne.find(
           {
-            $text: { $search: searchTerm },
+            $text: { $search: searchTerm }
           },
           {
-            score: { $meta: 'textScore' },
+            score: { $meta: "textScore" }
           }
         ).sort({
-          score: { $meta: 'textScore' },
+          score: { $meta: "textScore" }
         });
         return searchResults;
-      } else {
-        // no searchTerm so just return all the colognes
-        const colognes = await Cologne.find().sort({
-          likes: 'desc',
-          createdDate: 'desc',
-        });
-
-        return colognes;
       }
+      // no searchTerm so just return all the colognes
+      const colognes = await Cologne.find().sort({
+        likes: "desc",
+        createdDate: "desc"
+      });
+
+      return colognes;
     },
 
     // user
@@ -90,20 +89,20 @@ exports.resolvers = {
         return null;
       }
       const user = await User.findOne({
-        username: currentUser.username,
+        username: currentUser.username
       }).populate({
-        path: 'favorites',
-        model: 'Cologne',
+        path: "favorites",
+        model: "Cologne"
       });
       return user;
     },
 
     getUserColognes: async (root, { username }, { Cologne }) => {
       const userColognes = await Cologne.find({ username }).sort({
-        createdDate: 'desc',
+        createdDate: "desc"
       });
       return userColognes;
-    },
+    }
   },
 
   Mutation: {
@@ -117,7 +116,7 @@ exports.resolvers = {
         scentBrand,
         scentPrice,
         description,
-        username,
+        username
       }).save();
 
       return newCologne;
@@ -141,34 +140,34 @@ exports.resolvers = {
       return cologne;
     },
 
-    signinUser: async (root, { username, email, password }, { User }) => {
+    signinUser: async (root, { username, password }, { User }) => {
       const user = await User.findOne({ username });
       if (!user) {
-        throw new Error('User not found');
+        throw new Error("User not found");
       }
       // check to make sure password matches with user that is found
       const isValidPassword = await bcrypt.compare(password, user.password);
       if (!isValidPassword) {
-        throw new Error('Invalid Password');
+        throw new Error("Invalid Password");
       }
       // all good? return token
-      return { token: createToken(user, process.env.SECRET, '1hr') };
+      return { token: createToken(user, process.env.SECRET, "1hr") };
     },
 
     signupUser: async (root, { username, email, password }, { User }) => {
       // check if user already exists
       const user = await User.findOne({ username });
       if (user) {
-        throw new Error('User already exists');
+        throw new Error("User already exists");
       }
       // user doesn't exist, create one
       const newUser = await new User({
         username,
         email,
-        password,
+        password
       }).save();
 
-      return { token: createToken(newUser, process.env.SECRET, '1hr') };
-    },
-  },
+      return { token: createToken(newUser, process.env.SECRET, "1hr") };
+    }
+  }
 };

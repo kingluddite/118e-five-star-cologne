@@ -1,14 +1,19 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
 
 // GraphQL
-import { Query } from 'react-apollo';
-import { GET_COLOGNE } from '../../queries';
+import { Query } from "react-apollo";
+import { GET_COLOGNE } from "../../queries";
 
 // utilities
-import { formatDate } from '../../utilities';
+import { formatDate } from "../../utilities";
 
 class ColognePage extends Component {
+  static propTypes = {
+    match: PropTypes.object.isRequired
+  };
+
   render() {
     const { match } = this.props;
     const { _id } = match.params;
@@ -27,7 +32,7 @@ class ColognePage extends Component {
             createdDate,
             likes,
             description,
-            username,
+            username
           } = data.getCologne;
 
           return (
@@ -57,7 +62,7 @@ class ColognePage extends Component {
                 <strong>Created By: </strong>
                 {username}
               </p>
-              <button>Like</button>
+              <button type="button">Like</button>
             </div>
           );
         }}

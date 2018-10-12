@@ -1,36 +1,37 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const mongoose = require("mongoose");
+
+const { Schema } = mongoose;
 
 const CologneSchema = new Schema({
   scentName: {
     type: String,
-    required: true,
+    required: true
   },
   scentBrand: {
     type: String,
-    required: true,
+    required: true
   },
   scentPrice: {
-    type: Number,
+    type: Number
   },
   createdDate: {
     type: Date,
-    default: Date.now,
+    default: Date.now
   },
   description: {
-    type: String,
+    type: String
   },
   likes: {
     type: Number,
-    default: 0,
+    default: 0
   },
   username: {
-    type: String,
-  },
+    type: String
+  }
 });
 
 CologneSchema.index({
-  '$**': 'text',
+  "$**": "text"
 });
 
-module.exports = mongoose.model('Cologne', CologneSchema);
+module.exports = mongoose.model("Cologne", CologneSchema);

@@ -1,44 +1,54 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
 
-import { Mutation } from 'react-apollo';
-import { SIGNIN_USER } from '../../queries';
+// graphql
+import { Mutation } from "react-apollo";
+import { SIGNIN_USER } from "../../queries";
 
 // components
-import Error from '../Error';
+import Error from "../Error";
 
 const initialState = {
-  username: '',
-  password: '',
+  username: "",
+  password: ""
 };
 
 class Signin extends Component {
+  static propTypes = {
+    refetch: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired
+  };
+
   state = {
-    ...initialState,
+    ...initialState
   };
 
   clearState = () => {
     this.setState({
-      ...initialState,
+      ...initialState
     });
   };
 
   handleChange = event => {
     const { name, value } = event.target;
     this.setState({
-      [name]: value,
+      [name]: value
     });
   };
 
   handleSubmit = (event, signinUser) => {
+    const { history, refetch } = this.props;
     event.preventDefault();
     signinUser().then(async ({ data: { signinUser } }) => {
+      /* eslint no-shadow: 0 */
+
       // console.log(signinUser.data);
-      localStorage.setItem('token', signinUser.token);
-      await this.props.refetch();
+      localStorage.setItem("token", signinUser.token);
+      await refetch();
       this.clearState();
       // redirect to home page
-      this.props.history.push('/');
+      history.push("/");
     });
   };
 
@@ -56,13 +66,12 @@ class Signin extends Component {
       <div className="App">
         <h2 className="App">Signin</h2>
         <Mutation mutation={SIGNIN_USER} variables={{ username, password }}>
-          {(signinUser, { data, loading, error }) => {
-            return (
-              <form
-                className="form"
-                onSubmit={event => this.handleSubmit(event, signinUser)}
-              >
-                <label htmlFor="username">Username</label>
+          {(signinUser, { data, loading, error }) => (
+            <form
+              className="form"
+              onSubmit={event => this.handleSubmit(event, signinUser)}
+            >
+              <label htmlFor="username">
                 <input
                   type="text"
                   name="username"
@@ -71,7 +80,9 @@ class Signin extends Component {
                   onChange={this.handleChange}
                   value={username}
                 />
-                <label htmlFor="password">Password</label>
+                Username
+              </label>
+              <label htmlFor="password">
                 <input
                   type="password"
                   name="password"
@@ -80,18 +91,20 @@ class Signin extends Component {
                   onChange={this.handleChange}
                   value={password}
                 />
-                <div>
-                  <button
-                    className="button-primary"
-                    disabled={loading || this.validateForm()}
-                  >
-                    Signin
-                  </button>
-                  {error && <Error error={error} />}
-                </div>
-              </form>
-            );
-          }}
+                Password
+              </label>
+              <div>
+                <button
+                  type="button"
+                  className="button-primary"
+                  disabled={loading || this.validateForm()}
+                >
+                  Signin
+                </button>
+                {error && <Error error={error} />}
+              </div>
+            </form>
+          )}
         </Mutation>
       </div>
     );
