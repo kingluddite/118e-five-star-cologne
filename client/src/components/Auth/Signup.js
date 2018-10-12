@@ -85,7 +85,7 @@ class Signup extends Component {
                   onChange={this.handleChange}
                   value={username}
                 />
-                Username
+                <span className="hide">Username</span>
               </label>
               <label htmlFor="email">
                 <input
@@ -96,7 +96,7 @@ class Signup extends Component {
                   onChange={this.handleChange}
                   value={email}
                 />
-                Email
+                <span className="hide">Email</span>
               </label>
               <label htmlFor="password">
                 <input
@@ -107,7 +107,7 @@ class Signup extends Component {
                   onChange={this.handleChange}
                   value={password}
                 />
-                Password
+                <span className="hide">Password</span>
               </label>
               <label htmlFor="passwordConfirmation">
                 <input
@@ -118,7 +118,7 @@ class Signup extends Component {
                   onChange={this.handleChange}
                   value={passwordConfirmation}
                 />
-                Confirm Password
+                <span className="hide">Confirm Password</span>
               </label>
               <div>
                 <button

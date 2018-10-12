@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  h1 {
+    color: red;
+  }
 }
 
 nav {
@@ -46,6 +49,13 @@ textarea {
 .delete-button {
   color: red;
   cursor: pointer;
+}
+
+/* hide all labels but they are still accessible */
+.hide {
+  position: absolute !important;
+  top: -9999px !important;
+  left: -9999px !important;
 }
 
 /* Modal */

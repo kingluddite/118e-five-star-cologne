@@ -65,7 +65,7 @@ class ColognePage extends Component {
                 <strong>Created By: </strong>
                 {username}
               </p>
-              <button type="button">Like</button>
+              <LikeCologne _id={_id} />
             </div>
           );
         }}

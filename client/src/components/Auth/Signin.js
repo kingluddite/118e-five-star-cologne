@@ -81,7 +81,7 @@ class Signin extends Component {
                   onChange={this.handleChange}
                   value={username}
                 />
-                Username
+                <span className="hide">Username</span>
               </label>
               <label htmlFor="password">
                 <input
@@ -92,7 +92,7 @@ class Signin extends Component {
                   onChange={this.handleChange}
                   value={password}
                 />
-                Password
+                <span className="hide">Password</span>
               </label>
               <div>
                 <button

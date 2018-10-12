@@ -1,4 +1,4 @@
-const { gql } = require('apollo-server-express');
+const { gql } = require("apollo-server-express");
 
 exports.typeDefs = gql`
   scalar ObjectID
@@ -53,6 +53,8 @@ exports.typeDefs = gql`
     ): Cologne
 
     deleteUserCologne(_id: ObjectID): Cologne
+
+    likeCologne(_id: ObjectID!, username: String!): Cologne
 
     signinUser(username: String!, password: String!): Token
     signupUser(username: String!, email: String!, password: String!): Token

@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 // graphql stuff
-import { Query } from 'react-apollo';
-import { GET_ALL_COLOGNES } from '../queries';
+import { Query } from "react-apollo";
+import { GET_ALL_COLOGNES } from "../queries";
 
 // custom components
-import CologneItem from './Cologne/CologneItem';
+import CologneItem from "./Cologne/CologneItem";
 
 // styles
-import './App.css';
+import "./App.scss";
 
 class App extends Component {
   render() {
