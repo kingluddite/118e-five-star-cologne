@@ -38,6 +38,7 @@ class Signin extends Component {
   };
 
   handleSubmit = (event, signinUser) => {
+    console.log("test");
     const { history, refetch } = this.props;
     event.preventDefault();
     signinUser().then(async ({ data: { signinUser } }) => {
@@ -95,7 +96,7 @@ class Signin extends Component {
               </label>
               <div>
                 <button
-                  type="button"
+                  type="submit"
                   className="button-primary"
                   disabled={loading || this.validateForm()}
                 >
