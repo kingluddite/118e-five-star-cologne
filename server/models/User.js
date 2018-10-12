@@ -1,35 +1,36 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const bcrypt = require('bcrypt');
+const mongoose = require("mongoose");
+
+const { Schema } = mongoose;
+const bcrypt = require("bcrypt");
 
 const UserSchema = new Schema({
   username: {
     type: String,
     required: true,
-    unique: true,
+    unique: true
   },
   password: {
     type: String,
-    required: true,
+    required: true
   },
   email: {
     type: String,
     required: true,
-    unique: true,
+    unique: true
   },
   joinDate: {
     type: Date,
-    default: Date.now,
+    default: Date.now
   },
   favorites: {
     type: [Schema.Types.ObjectId],
-    ref: 'Cologne',
-  },
+    ref: "Cologne"
+  }
 });
 
 /* do this before a user is created */
-UserSchema.pre('save', function(next) {
-  if (!this.isModified('password')) {
+UserSchema.pre("save", function(next) {
+  if (!this.isModified("password")) {
     return next();
   }
 
@@ -44,4 +45,4 @@ UserSchema.pre('save', function(next) {
   });
 });
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model("User", UserSchema);

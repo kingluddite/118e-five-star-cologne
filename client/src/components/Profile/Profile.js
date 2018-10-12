@@ -1,13 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 // Auth
-import withAuth from '../withAuth';
+import withAuth from "../withAuth";
 
 // custom components
-import UserInfo from './UserInfo';
-import UserColognes from '../Profile/UserColognes';
+import UserInfo from "./UserInfo";
+import UserColognes from "./UserColognes";
 
 class Profile extends Component {
+  static propTypes = {
+    session: PropTypes.object.isRequired
+  };
+
   render() {
     const { session } = this.props;
     return (

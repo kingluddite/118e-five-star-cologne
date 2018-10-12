@@ -1,37 +1,37 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 // utility functions
-import { formatDate } from '../../utilities';
+import { formatDate } from "../../utilities";
 
 class UserInfo extends Component {
+  static propTypes = {
+    session: PropTypes.object.isRequired
+  };
+
   render() {
-    const {
-      username,
-      email,
-      joinDate,
-      favorites,
-    } = this.props.session.getCurrentUser;
+    const { session } = this.props;
 
     return (
       <div>
         <h3>User Info</h3>
-        <p>Username: {username}</p>
-        <p>Email: {email}</p>
-        <p>Join Date: {formatDate(joinDate)}</p>
+        <p>Username: {session.getCurrentUser.username}</p>
+        <p>Email: {session.getCurrentUser.email}</p>
+        <p>Join Date: {formatDate(session.getCurrentUser.joinDate)}</p>
         <ul>
           <h3>
-            {username.toUpperCase()}
+            {session.getCurrentUser.username.toUpperCase()}
             's Favorites
           </h3>
-          {favorites.map(favorite => (
+          {session.getCurrentUser.favorites.map(favorite => (
             <li key={favorite._id}>
               <Link to={`/cologne/${favorite._id}`}>
                 <p>{favorite.scentName}</p>
               </Link>
             </li>
           ))}
-          {!favorites.length && (
+          {!session.getCurrentUser.favorites.length && (
             <p>
               <strong>You currently have no favorites. Go add some!</strong>
             </p>

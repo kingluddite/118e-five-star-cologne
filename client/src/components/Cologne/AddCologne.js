@@ -1,39 +1,46 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
 
 // GraphQL
-import { Mutation } from 'react-apollo';
+import { Mutation } from "react-apollo";
 import {
   ADD_COLOGNE,
   GET_ALL_COLOGNES,
-  GET_USER_COLOGNES,
-} from '../../queries';
+  GET_USER_COLOGNES
+} from "../../queries";
 
 // Auth
-import withAuth from '../withAuth';
+import withAuth from "../withAuth";
 
 const initialState = {
-  scentName: '',
-  scentBrand: '',
+  scentName: "",
+  scentBrand: "",
   scentPrice: 0,
-  description: '',
-  username: '',
+  description: "",
+  username: ""
 };
 
 class AddCologne extends Component {
+  static propTypes = {
+    session: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
+  };
+
   state = {
-    ...initialState,
+    ...initialState
   };
 
   clearState = () => {
     this.setState({
-      ...initialState,
+      ...initialState
     });
   };
 
   componentDidMount = () => {
+    const { session } = this.props;
     this.setState({
-      username: this.props.session.getCurrentUser.username,
+      username: session.getCurrentUser.username
     });
   };
 
@@ -41,31 +48,32 @@ class AddCologne extends Component {
     const { name, value } = event.target;
 
     this.setState({
-      [name]: value,
+      [name]: value
     });
   };
 
   handleSubmit = (event, addCologne) => {
+    const { history } = this.props;
     event.preventDefault();
     addCologne().then(({ data }) => {
       // console.log(data);
       this.clearState();
-      this.props.history.push('/');
+      history.push("/");
     });
   };
 
   updateCache = (cache, { data: { addCologne } }) => {
     // read the query
     const { getAllColognes } = cache.readQuery({
-      query: GET_ALL_COLOGNES,
+      query: GET_ALL_COLOGNES
     });
 
     // write to the query
     cache.writeQuery({
       query: GET_ALL_COLOGNES,
       data: {
-        getAllColognes: [addCologne, ...getAllColognes],
-      },
+        getAllColognes: [addCologne, ...getAllColognes]
+      }
     });
   };
 
@@ -75,7 +83,7 @@ class AddCologne extends Component {
       scentBrand,
       scentPrice,
       description,
-      username,
+      username
     } = this.state;
 
     return (
@@ -88,13 +96,13 @@ class AddCologne extends Component {
             scentBrand,
             scentPrice,
             description,
-            username,
+            username
           }}
           refetchQueries={() => [
             {
               query: GET_USER_COLOGNES,
-              variables: { username },
-            },
+              variables: { username }
+            }
           ]}
           update={this.updateCache}
         >
@@ -108,42 +116,53 @@ class AddCologne extends Component {
                 className="form"
                 onSubmit={event => this.handleSubmit(event, addCologne)}
               >
-                <label htmlFor="scentName">Scent Name</label>
-                <input
-                  type="text"
-                  id="scentName"
-                  name="scentName"
-                  placeholder="Scent Name"
-                  onChange={this.handleChange}
-                  value={scentName}
-                />
-                <label htmlFor="scentBrand">Scent Brand</label>
-                <input
-                  type="text"
-                  id="scentBrand"
-                  name="scentBrand"
-                  placeholder="Scent Brand"
-                  onChange={this.handleChange}
-                  value={scentBrand}
-                />
-                <label htmlFor="scentPrice">Scent Price</label>
-                <input
-                  type="text"
-                  id="scentPrice"
-                  name="scentPrice"
-                  placeholder="Scent Price"
-                  onChange={this.handleChange}
-                  value={scentPrice}
-                />
-                <label htmlFor="description">Scent Description</label>
-                <textarea
-                  id="description"
-                  name="description"
-                  placeholder="Scent Description"
-                  onChange={this.handleChange}
-                  value={description}
-                />
-                <button className="button-primary">Add Cologne</button>
+                <label htmlFor="scentName">
+                  <input
+                    type="text"
+                    id="scentName"
+                    name="scentName"
+                    placeholder="Scent Name"
+                    onChange={this.handleChange}
+                    value={scentName}
+                  />
+                  Scent Name
+                </label>
+                <label htmlFor="scentBrand">
+                  <input
+                    type="text"
+                    id="scentBrand"
+                    name="scentBrand"
+                    placeholder="Scent Brand"
+                    onChange={this.handleChange}
+                    value={scentBrand}
+                  />
+                  Scent Brand
+                </label>
+                <label htmlFor="scentPrice">
+                  <input
+                    type="text"
+                    id="scentPrice"
+                    name="scentPrice"
+                    placeholder="Scent Price"
+                    onChange={this.handleChange}
+                    value={scentPrice}
+                  />
+                  Scent Price
+                </label>
+                <label htmlFor="description">
+                  <textarea
+                    id="description"
+                    name="description"
+                    placeholder="Scent Description"
+                    onChange={this.handleChange}
+                    value={description}
+                  >
+                    Description
+                  </textarea>
+                </label>
+                <button type="button" className="button-primary">
+                  Add Cologne
+                </button>
               </form>
             );
           }}

@@ -1,28 +1,34 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
 
 // graphql
-import { Mutation } from 'react-apollo';
-import { SIGNUP_USER } from '../../queries';
+import { Mutation } from "react-apollo";
+import { SIGNUP_USER } from "../../queries";
 
 // components
-import Error from '../Error';
+import Error from "../Error";
 
 const initialState = {
-  username: '',
-  email: '',
-  password: '',
-  passwordConfirmation: '',
+  username: "",
+  email: "",
+  password: "",
+  passwordConfirmation: ""
 };
 
 class Signup extends Component {
+  static propTypes = {
+    refetch: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired
+  };
+
   state = {
-    ...initialState,
+    ...initialState
   };
 
   clearState = () => {
     this.setState({
-      ...initialState,
+      ...initialState
     });
   };
 
@@ -30,19 +36,20 @@ class Signup extends Component {
     const { name, value } = event.target;
     // console.log(name, ':', value);
     this.setState({
-      [name]: value,
+      [name]: value
     });
   };
 
   handleSubmit = (event, signupUser) => {
+    const { history, refetch } = this.props;
     event.preventDefault();
     signupUser().then(async ({ data: { signupUser } }) => {
       // console.log(signupUser.token);
-      localStorage.setItem('token', signupUser.token);
-      await this.props.refetch();
+      localStorage.setItem("token", signupUser.token);
+      await refetch();
       this.clearState();
       // after signing up, redirect to home page
-      this.props.history.push('/');
+      history.push("/");
     });
   };
 
@@ -64,13 +71,12 @@ class Signup extends Component {
           mutation={SIGNUP_USER}
           variables={{ username, email, password }}
         >
-          {(signupUser, { data, loading, error }) => {
-            return (
-              <form
-                className="form"
-                onSubmit={event => this.handleSubmit(event, signupUser)}
-              >
-                <label htmlFor="username">Username</label>
+          {(signupUser, { data, loading, error }) => (
+            <form
+              className="form"
+              onSubmit={event => this.handleSubmit(event, signupUser)}
+            >
+              <label htmlFor="username">
                 <input
                   type="text"
                   name="username"
@@ -79,7 +85,9 @@ class Signup extends Component {
                   onChange={this.handleChange}
                   value={username}
                 />
-                <label htmlFor="email">Email</label>
+                Username
+              </label>
+              <label htmlFor="email">
                 <input
                   type="email"
                   name="email"
@@ -88,7 +96,9 @@ class Signup extends Component {
                   onChange={this.handleChange}
                   value={email}
                 />
-                <label htmlFor="password">Password</label>
+                Email
+              </label>
+              <label htmlFor="password">
                 <input
                   type="password"
                   name="password"
@@ -97,7 +107,9 @@ class Signup extends Component {
                   onChange={this.handleChange}
                   value={password}
                 />
-                <label htmlFor="passwordConfirmation">Confirm Password</label>
+                Password
+              </label>
+              <label htmlFor="passwordConfirmation">
                 <input
                   type="password"
                   name="passwordConfirmation"
@@ -106,18 +118,20 @@ class Signup extends Component {
                   onChange={this.handleChange}
                   value={passwordConfirmation}
                 />
-                <div>
-                  <button
-                    className="button-primary"
-                    disabled={loading || this.validateForm()}
-                  >
-                    Signup
-                  </button>
-                  {error && <Error error={error} />}
-                </div>
-              </form>
-            );
-          }}
+                Confirm Password
+              </label>
+              <div>
+                <button
+                  type="button"
+                  className="button-primary"
+                  disabled={loading || this.validateForm()}
+                >
+                  Signup
+                </button>
+                {error && <Error error={error} />}
+              </div>
+            </form>
+          )}
         </Mutation>
       </div>
     );

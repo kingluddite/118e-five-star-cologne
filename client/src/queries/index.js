@@ -1,7 +1,7 @@
-import { gql } from 'apollo-boost';
+import { gql } from "apollo-boost";
 
 // fragments
-import { cologneFragments } from './fragments';
+import { cologneFragments } from "./fragments";
 
 // cologne queries
 
@@ -51,9 +51,13 @@ export const ADD_COLOGNE = gql`
       description: $description
       username: $username
     ) {
-      ...CompleteCologne
+      _id
+      scentName
+      scentBrand
+      scentPrice
+      description
+      username
     }
-  ${cologneFragments.cologne}
   }
 `;
 

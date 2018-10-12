@@ -1,26 +1,31 @@
-import React, { Component, Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component, Fragment } from "react";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 // GraphQL
-import { Query, Mutation } from 'react-apollo';
+import { Query, Mutation } from "react-apollo";
 import {
   GET_USER_COLOGNES,
   DELETE_USER_COLOGNE,
   GET_ALL_COLOGNES,
-  GET_CURRENT_USER,
-} from '../../queries';
+  GET_CURRENT_USER
+} from "../../queries";
 
 // custom components
-import EditCologneModal from '../Cologne/EditCologneModal';
+import EditCologneModal from "../Cologne/EditCologneModal";
 
 class UserColognes extends Component {
+  static propTypes = {
+    username: PropTypes.string.isRequired
+  };
+
   state = {
-    _id: '',
-    scentName: '',
-    scentBrand: '',
-    scentPrice: 0,
-    description: '',
-    modal: false,
+    _id: "", // eslint-disable-line react/no-unused-state
+    title: "", // eslint-disable-line react/no-unused-state
+    imageUrl: "", // eslint-disable-line react/no-unused-state
+    category: "", // eslint-disable-line react/no-unused-state
+    description: "", // eslint-disable-line react/no-unused-state
+    modal: false
   };
 
   loadCologne = cologne => {
@@ -34,7 +39,7 @@ class UserColognes extends Component {
 
   handleDelete = deleteUserCologne => {
     const confirmDelete = window.confirm(
-      'Are you sure you want to delete this cologne?'
+      "Are you sure you want to delete this cologne?"
     );
 
     if (confirmDelete) {
@@ -47,7 +52,7 @@ class UserColognes extends Component {
   handleChange = event => {
     const { name, value } = event.target;
     this.setState({
-      [name]: value,
+      [name]: value
     });
   };
 
@@ -89,19 +94,19 @@ class UserColognes extends Component {
                   <Link to={`/cologne/${cologne._id}`}>
                     <p>{cologne.scentName}</p>
                   </Link>
-                  <p style={{ marginBottom: '0' }}>Likes: {cologne.likes}</p>
+                  <p style={{ marginBottom: "0" }}>Likes: {cologne.likes}</p>
                   <Mutation
                     mutation={DELETE_USER_COLOGNE}
                     variables={{ _id: cologne._id }}
                     refetchQueries={() => [
                       { query: GET_ALL_COLOGNES },
-                      { query: GET_CURRENT_USER },
+                      { query: GET_CURRENT_USER }
                     ]}
                     update={(cache, { data: { deleteUserCologne } }) => {
                       // console.log(cache, data);
                       const { getUserColognes } = cache.readQuery({
                         query: GET_USER_COLOGNES,
-                        variables: { username },
+                        variables: { username }
                       });
 
                       cache.writeQuery({
@@ -110,30 +115,29 @@ class UserColognes extends Component {
                         data: {
                           getUserColognes: getUserColognes.filter(
                             cologne => cologne._id !== deleteUserCologne._id
-                          ),
-                        },
+                          )
+                        }
                       });
                     }}
                   >
-                    {(deleteUserCologne, attrs = {}) => {
-                      return (
-                        <Fragment>
-                          <button
-                            type="button"
-                            className="button-primary"
-                            onClick={() => this.loadCologne(cologne)}
-                          >
-                            Update
-                          </button>
-                          <button
-                            className="delete-button"
-                            onClick={() => this.handleDelete(deleteUserCologne)}
-                          >
-                            {attrs.loading ? 'deleting...' : 'X'}
-                          </button>
-                        </Fragment>
-                      );
-                    }}
+                    {(deleteUserCologne, attrs = {}) => (
+                      <Fragment>
+                        <button
+                          type="button"
+                          className="button-primary"
+                          onClick={() => this.loadCologne(cologne)}
+                        >
+                          Update
+                        </button>
+                        <button
+                          type="button"
+                          className="delete-button"
+                          onClick={() => this.handleDelete(deleteUserCologne)}
+                        >
+                          {attrs.loading ? "deleting..." : "X"}
+                        </button>
+                      </Fragment>
+                    )}
                   </Mutation>
                 </li>
               ))}

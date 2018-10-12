@@ -1,26 +1,39 @@
-import React from 'react';
-import { ApolloConsumer } from 'react-apollo';
-import { withRouter } from 'react-router-dom';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { ApolloConsumer } from "react-apollo";
+import { withRouter } from "react-router-dom";
 
-const handleSignout = (client, history) => {
-  // clear token
-  // localStorage.setItem('token', '');
-  localStorage.removeItem('token');
-  client.resetStore();
-  // redirect to home page
-  history.push('/');
-};
+class Signout extends Component {
+  static propTypes = {
+    history: PropTypes.object.isRequired
+  };
 
-const Signout = ({ history }) => (
-  <ApolloConsumer>
-    {client => {
-      // console.log(client);
+  handleSignout = (client, history) => {
+    // clear token
+    localStorage.removeItem("token");
+    client.resetStore();
+    // redirect using withRouter
+    history.push("/");
+  };
 
-      return (
-        <button onClick={() => handleSignout(client, history)}>Signout</button>
-      );
-    }}
-  </ApolloConsumer>
-);
+  render() {
+    const { history } = this.props;
+
+    return (
+      <ApolloConsumer>
+        {client => (
+          // console.log(client);
+
+          <button
+            type="button"
+            onClick={() => this.handleSignout(client, history)}
+          >
+            Signout
+          </button>
+        )}
+      </ApolloConsumer>
+    );
+  }
+}
 
 export default withRouter(Signout);

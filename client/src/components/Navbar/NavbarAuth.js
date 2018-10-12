@@ -1,10 +1,19 @@
-import React, { Component, Fragment } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { Component, Fragment } from "react";
+import { NavLink } from "react-router-dom";
+import PropTypes from "prop-types";
 
 // custom components
-import Signout from '../Auth/Signout';
+import Signout from "../Auth/Signout";
 
 class NavbarAuth extends Component {
+  static propTypes = {
+    session: PropTypes.object
+  };
+
+  static defaultProps = {
+    session: {}
+  };
+
   render() {
     const { session } = this.props;
     return (
