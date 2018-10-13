@@ -55,6 +55,7 @@ exports.typeDefs = gql`
     deleteUserCologne(_id: ObjectID): Cologne
 
     likeCologne(_id: ObjectID!, username: String!): Cologne
+    unlikeCologne(_id: ObjectID!, username: String!): Cologne
 
     signinUser(username: String!, password: String!): Token
     signupUser(username: String!, email: String!, password: String!): Token

@@ -160,7 +160,7 @@ class AddCologne extends Component {
                     <span className="hide">Description</span>
                   </textarea>
                 </label>
-                <button type="button" className="button-primary">
+                <button type="submit" className="button-primary">
                   Add Cologne
                 </button>
               </form>
