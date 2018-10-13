@@ -93,6 +93,24 @@ export const DELETE_USER_COLOGNE = gql`
   }
 `;
 
+export const LIKE_COLOGNE = gql`
+  mutation($_id: ObjectID!, $username: String!) {
+    likeCologne(_id: $_id, username: $username) {
+      ...LikeCologne
+    }
+  }
+  ${cologneFragments.like}
+`;
+
+export const UNLIKE_COLOGNE = gql`
+  mutation($_id: ObjectID!, $username: String!) {
+    unlikeCologne(_id: $_id, username: $username) {
+      ...LikeCologne
+    }
+  }
+  ${cologneFragments.like}
+`;
+
 // User Queries
 
 export const GET_CURRENT_USER = gql`

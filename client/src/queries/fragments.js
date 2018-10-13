@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost';
+import { gql } from "apollo-boost";
 
 export const cologneFragments = {
   cologne: gql`
@@ -13,4 +13,11 @@ export const cologneFragments = {
       username
     }
   `,
+
+  like: gql`
+    fragment LikeCologne on Cologne {
+      _id
+      likes
+    }
+  `
 };

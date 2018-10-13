@@ -140,6 +140,29 @@ exports.resolvers = {
       return cologne;
     },
 
+    likeCologne: async (root, { _id, username }, { Cologne, User }) => {
+      const cologne = await Cologne.findOneAndUpdate(
+        { _id },
+        { $inc: { likes: 1 } }
+      );
+      const user = await User.findOneAndUpdate(
+        { username },
+        { $addToSet: { favorites: _id } }
+      );
+      return cologne;
+    },
+
+    unlikeCologne: async (root, { _id, username }, { Cologne, User }) => {
+      const cologne = await Cologne.findOneAndUpdate(
+        { _id },
+        { $inc: { likes: -1 } }
+      );
+      const user = await User.findOneAndUpdate(
+        { username },
+        { $pull: { favorites: _id } }
+      );
+      return cologne;
+    },
     signinUser: async (root, { username, password }, { User }) => {
       const user = await User.findOne({ username });
       if (!user) {

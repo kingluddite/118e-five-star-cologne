@@ -9,6 +9,9 @@ import { GET_COLOGNE } from "../../queries";
 // utilities
 import { formatDate } from "../../utilities";
 
+// custom components
+import LikeCologne from "./LikeCologne";
+
 class ColognePage extends Component {
   static propTypes = {
     match: PropTypes.object.isRequired
@@ -62,7 +65,7 @@ class ColognePage extends Component {
                 <strong>Created By: </strong>
                 {username}
               </p>
-              <button type="button">Like</button>
+              <LikeCologne _id={_id} />
             </div>
           );
         }}

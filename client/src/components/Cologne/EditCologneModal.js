@@ -42,7 +42,7 @@ class EditCologneModal extends Component {
                       onChange={handleChange}
                       value={cologne.scentName}
                     />
-                    Scent Name
+                    <span className="hide">Scent Name</span>
                   </label>
                   <label htmlFor="scentBrand">
                     <input
@@ -51,7 +51,7 @@ class EditCologneModal extends Component {
                       onChange={handleChange}
                       value={cologne.scentBrand}
                     />
-                    Scent Brand
+                    <span className="hide">Scent Brand</span>
                   </label>
                   <label htmlFor="scentPrice">
                     <input
@@ -60,7 +60,7 @@ class EditCologneModal extends Component {
                       onChange={handleChange}
                       value={cologne.scentPrice}
                     />
-                    Scent Price
+                    <span className="hide">Scent Price</span>
                   </label>
                   {/* <label htmlFor="description">Add Description</label> */}
                   {/* <textarea */}

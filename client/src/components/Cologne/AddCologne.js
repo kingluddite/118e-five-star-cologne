@@ -125,7 +125,7 @@ class AddCologne extends Component {
                     onChange={this.handleChange}
                     value={scentName}
                   />
-                  Scent Name
+                  <span className="hide">Scent Name</span>
                 </label>
                 <label htmlFor="scentBrand">
                   <input
@@ -136,7 +136,7 @@ class AddCologne extends Component {
                     onChange={this.handleChange}
                     value={scentBrand}
                   />
-                  Scent Brand
+                  <span className="hide">Scent Brand</span>
                 </label>
                 <label htmlFor="scentPrice">
                   <input
@@ -147,7 +147,7 @@ class AddCologne extends Component {
                     onChange={this.handleChange}
                     value={scentPrice}
                   />
-                  Scent Price
+                  <span className="hide">Scent Price</span>
                 </label>
                 <label htmlFor="description">
                   <textarea
@@ -157,10 +157,10 @@ class AddCologne extends Component {
                     onChange={this.handleChange}
                     value={description}
                   >
-                    Description
+                    <span className="hide">Description</span>
                   </textarea>
                 </label>
-                <button type="button" className="button-primary">
+                <button type="submit" className="button-primary">
                   Add Cologne
                 </button>
               </form>
